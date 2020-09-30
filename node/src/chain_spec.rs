@@ -6,7 +6,7 @@ use node_template_runtime::{
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{Verify, IdentifyAccount};
-use sc_service::ChainType;
+use sc_service::{ChainType, Properties};
 
 // The URL for the telemetry server.
 // const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
@@ -40,7 +40,10 @@ pub fn authority_keys_from_seed(s: &str) -> (AuraId, GrandpaId) {
 }
 
 pub fn development_config() -> Result<ChainSpec, String> {
-	let wasm_binary = WASM_BINARY.ok_or("Development wasm binary not available".to_string())?;
+    let wasm_binary = WASM_BINARY.ok_or("Development wasm binary not available".to_string())?;
+    let mut properties = Properties::new();
+	properties.insert("tokenSymbol".into(), "DEV".into());
+	properties.insert("tokenDecimals".into(), 12.into());
 
 	Ok(ChainSpec::from_genesis(
 		// Name
@@ -72,14 +75,17 @@ pub fn development_config() -> Result<ChainSpec, String> {
 		// Protocol ID
 		None,
 		// Properties
-		None,
+		Some(properties),
 		// Extensions
 		None,
 	))
 }
 
 pub fn local_testnet_config() -> Result<ChainSpec, String> {
-	let wasm_binary = WASM_BINARY.ok_or("Development wasm binary not available".to_string())?;
+    let wasm_binary = WASM_BINARY.ok_or("Development wasm binary not available".to_string())?;
+    let mut properties = Properties::new();
+	properties.insert("tokenSymbol".into(), "STG".into());
+	properties.insert("tokenDecimals".into(), 12.into());
 
 	Ok(ChainSpec::from_genesis(
 		// Name
@@ -120,7 +126,7 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 		// Protocol ID
 		None,
 		// Properties
-		None,
+		Some(properties),
 		// Extensions
 		None,
 	))
@@ -142,7 +148,7 @@ fn testnet_genesis(
 		}),
 		pallet_balances: Some(BalancesConfig {
 			// Configure endowed accounts with initial balance of 1 << 60.
-			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
+			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 65)).collect(),
 		}),
 		pallet_aura: Some(AuraConfig {
 			authorities: initial_authorities.iter().map(|x| (x.0.clone())).collect(),

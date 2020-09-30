@@ -129,6 +129,9 @@
 //!
 //! * [`System`](../frame_system/index.html)
 //! * [`Support`](../frame_support/index.html)
+//! compare with this one //
+//! https://github.com/paritytech/substrate/blob/v2.0.0-rc3/frame/generic-asset/src/lib.rs
+//! 
 
 // Ensure we're `no_std` when compiling for Wasm.
 #![cfg_attr(not(feature = "std"), no_std)]
@@ -173,7 +176,8 @@ decl_module! {
 			<NextAssetId<T>>::mutate(|id| *id += One::one());
 
 			<Balances<T>>::insert((id, &origin), total);
-			<TotalSupply<T>>::insert(id, total);
+            <TotalSupply<T>>::insert(id, total);
+
 
 			Self::deposit_event(RawEvent::Issued(id, origin, total));
 		}

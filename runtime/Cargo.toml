@@ -52,12 +52,6 @@ git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
 
-[dependencies.pallet-assets]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
 
 [dependencies.pallet-grandpa]
 default-features = false
@@ -172,6 +166,12 @@ package = 'pallet-template'
 path = '../pallets/template'
 version = '2.0.0-rc6'
 
+[dependencies.custom_assets]
+default-features = false
+package = 'pallet-custom_assets'
+path = '../pallets/custom_assets'
+version = '0.0.1'
+
 [features]
 default = ['std']
 std = [
@@ -185,7 +185,6 @@ std = [
     'pallet-grandpa/std',
     'pallet-randomness-collective-flip/std',
     'pallet-sudo/std',
-    'pallet-assets/std',
     'pallet-timestamp/std',
     'pallet-transaction-payment/std',
     'pallet-transaction-payment-rpc-runtime-api/std',
@@ -202,6 +201,7 @@ std = [
     'sp-transaction-pool/std',
     'sp-version/std',
     'template/std',
+    'custom_assets/std',
 ]
 
 [build-dependencies.wasm-builder-runner]

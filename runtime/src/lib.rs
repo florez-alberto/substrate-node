@@ -292,7 +292,7 @@ construct_runtime!(
 		// Include the custom logic from the template pallet in the runtime.
         TemplateModule: template::{Module, Call, Storage, Event<T>},
         //include the custom assets logic from the custom assets template in the runtime
-        Custom_assetsModule: custom_assets::{Module, Call, Storage, Event<T>},
+        CustomAssetsModule: custom_assets::{Module, Call, Storage, Event<T>},
 	}
 );
 
